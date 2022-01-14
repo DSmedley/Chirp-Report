@@ -17,7 +17,7 @@
 </head>
 <body>
     <div id="app">
-        <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="navbar navbar-inverse fixed-top">
             <div class="adjust-nav">
                 <div class="navbar-header">
                     <a class="navbar-brand" href="{{ route('admin.dashboard') }}">

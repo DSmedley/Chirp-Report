@@ -1,7 +1,7 @@
 <!--Analyze Twitter User-->
-<div class="panel panel-default">
-    <div class="panel-heading">Analyze Hashtag</div>
-    <div class="panel-body">
+<div class="card">
+    <div class="card-header">Analyze Hashtag</div>
+    <div class="card-body">
         <div class="row">
             <div class="col-md-12">
                 Enter a hashtag about a topic of interest. We will gather the given hashtag details and the tweets related to it, analyze them and put the results into simple and easy to read charts.
@@ -25,12 +25,14 @@
                     <div class="col-sm-4" style="margin-right:15px;">
                         <div class="form-group{{ $errors->has('hashtag') ? ' has-error' : '' }}">
                             <div class="input-group">
-                                <span class="input-group-addon" id="sizing-addon2">#</span>
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">#</span>
+                                </div>
                                 <input id="hashtag" name="hashtag" type="text" class="form-control" placeholder="Enter Hashtag" aria-describedby="sizing-addon2">
                             </div>
 
                             @if ($errors->has('hashtag'))
-                                <span class="help-block">
+                                <span class="form-text">
                                     <strong>{{ $errors->first('hashtag') }}</strong>
                                 </span>
                             @endif

@@ -47,9 +47,9 @@
     <div class="row">
         <!--/col-3-->
         <div class="col-sm-12" style="" contenteditable="false">
-            <div class="panel panel-default target">
-                <div class="panel-heading" contenteditable="false">Sentiment</div>
-                <div class="panel-body">
+            <div class="card target">
+                <div class="card-header" contenteditable="false">Sentiment</div>
+                <div class="card-body">
                     <div class="row">
                         <div class="col-md-4 align-self-center" off>
                             <canvas id="positivity" width="50" height="50"></canvas>
@@ -62,11 +62,11 @@
                         $positivity = array($analysis->neutral, $analysis->positive, $analysis->negative);
                         $emotions = array($analysis->anger, $analysis->anticipation, $analysis->disgust, $analysis->fear, $analysis->joy, $analysis->sadness, $analysis->surprise, $analysis->trust);
                     @endphp
-                </div> 
+                </div>
             </div>
-            <div class="panel panel-default">
-                <div class="panel-heading">Top Contributors</div>
-                <div class="panel-body">
+            <div class="card">
+                <div class="card-header">Top Contributors</div>
+                <div class="card-body">
                     <div class="container-fluid">
                         <div class="row no-gutter popup-gallery">
                             @if(isset($people))
@@ -76,8 +76,8 @@
                                             onclick="event.preventDefault();
                                                      document.getElementById('analysis-form-{{ $person->screen_name }}').submit();" class="portfolio-box">
 
-                                        
-                                            <img src="http://twivatar.glitch.me/{{ $person->screen_name }}" class="img-responsive" alt="">
+
+                                            <img src="http://twivatar.glitch.me/{{ $person->screen_name }}" class="img-fluid" alt="">
                                             <div class="portfolio-box-caption">
                                                 <div class="portfolio-box-caption-content">
                                                     <div class="project-category text-faded">
@@ -102,9 +102,9 @@
                     </div>
                 </div>
             </div>
-            <div class="panel panel-default">
-                <div class="panel-heading">Active Hours</div>
-                <div class="panel-body">
+            <div class="card">
+                <div class="card-header">Active Hours</div>
+                <div class="card-body">
                     @php
                         $time = array();
                         $occurs = array();
@@ -121,12 +121,12 @@
                 </div>
             </div>
         </div>
-    </div>  
+    </div>
 </div>
 @endif
 @endsection
 @section('javascript')
-    <script type="text/javascript">    
+    <script type="text/javascript">
         $(document).ready(function(){
             $('[data-toggle="tooltip"]').tooltip();
         });
@@ -138,7 +138,7 @@
             var emotions = {{ json_encode($emotions) }}
             var time = {{ json_encode($time) }}
             var occurs = {{ json_encode($occurs) }}
-            
+
             chart("positivity", positivity);
             bar("emotions", emotions);
             activeHours("active", time, occurs);

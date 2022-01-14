@@ -21,9 +21,9 @@
     <div class="row">
         <div class="col-sm-4">
             <!--Change Password-->
-            <div class="panel panel-default">
-                <div class="panel-heading">Change Password</div>
-                <div class="panel-body">
+            <div class="card">
+                <div class="card-header">Change Password</div>
+                <div class="card-body">
                     @if (session('passwordError'))
                         <div class="alert alert-danger">
                             {{ session('passwordError') }}
@@ -42,7 +42,7 @@
                                 <input id="current-password" type="password" class="form-control" name="current-password" placeholder="Current Password" required>
 
                                 @if ($errors->has('current-password'))
-                                    <span class="help-block">
+                                    <span class="form-text">
                                         <strong>{{ $errors->first('current-password') }}</strong>
                                     </span>
                                 @endif
@@ -54,7 +54,7 @@
                                 <input id="new-password" type="password" class="form-control" name="new-password" placeholder="New Password" required>
 
                                 @if ($errors->has('new-password'))
-                                    <span class="help-block">
+                                    <span class="form-text">
                                         <strong>{{ $errors->first('new-password') }}</strong>
                                     </span>
                                 @endif
@@ -68,7 +68,7 @@
                         </div>
 
                         <div class="form-group">
-                            <div class="col-md-12 col-md-offset-3">
+                            <div class="col-md-12 offset-3">
                                 <button type="button" id="changePasswordButton" class="btn btn-primary">
                                     Change Password
                                 </button>
@@ -79,9 +79,9 @@
             </div>
             <!--End Change Password-->
             <!--Change Username-->
-            <div class="panel panel-default">
-                <div class="panel-heading">Change Name</div>
-                <div class="panel-body">
+            <div class="card">
+                <div class="card-header">Change Name</div>
+                <div class="card-body">
                     @if (session('nameError'))
                         <div class="alert alert-danger">
                             {{ session('nameError') }}
@@ -100,7 +100,7 @@
                                 <input id="name" type="text" class="form-control" name="name" placeholder="Enter New Name" required>
 
                                 @if ($errors->has('name'))
-                                    <span class="help-block">
+                                    <span class="form-text">
                                         <strong>{{ $errors->first('name') }}</strong>
                                     </span>
                                 @endif
@@ -108,7 +108,7 @@
                         </div>
 
                         <div class="form-group">
-                            <div class="col-md-12 col-md-offset-3">
+                            <div class="col-md-12 offset-3">
                                 <button type="submit" name="changeName" class="btn btn-primary">
                                     Change Name
                                 </button>
@@ -121,9 +121,9 @@
         </div>
         <div class="col-sm-4">
             <!--Change Email-->
-            <div class="panel panel-default">
-                <div class="panel-heading">Change Email</div>
-                <div class="panel-body">
+            <div class="card">
+                <div class="card-header">Change Email</div>
+                <div class="card-body">
                     <p><strong>Current Email:</strong> {{ Auth::user()->email }}</p>
                     @if (session('emailError'))
                         <div class="alert alert-danger">
@@ -143,7 +143,7 @@
                                 <input id="email" type="email" class="form-control" name="email" placeholder="New Email" required>
 
                                 @if ($errors->has('email'))
-                                    <span class="help-block">
+                                    <span class="form-text">
                                         <strong>{{ $errors->first('email') }}</strong>
                                     </span>
                                 @endif
@@ -157,7 +157,7 @@
                         </div>
 
                         <div class="form-group">
-                            <div class="col-md-12 col-md-offset-3">
+                            <div class="col-md-12 offset-3">
                                 <button type="button" id="changeEmailButton" class="btn btn-primary">
                                     Change Email
                                 </button>
@@ -168,9 +168,9 @@
             </div>
             <!--End Change Email-->
             <!--Change Bio-->
-            <div class="panel panel-default">
-                <div class="panel-heading">Change Bio</div>
-                <div class="panel-body">
+            <div class="card">
+                <div class="card-header">Change Bio</div>
+                <div class="card-body">
                     @if (session('bioError'))
                         <div class="alert alert-danger">
                             {{ session('bioError') }}
@@ -190,7 +190,7 @@
                                 </textarea>
 
                                 @if ($errors->has('bio'))
-                                    <span class="help-block">
+                                    <span class="form-text">
                                         <strong>{{ $errors->first('bio') }}</strong>
                                     </span>
                                 @endif
@@ -198,7 +198,7 @@
                         </div>
 
                         <div class="form-group">
-                            <div class="col-md-12 col-md-offset-3">
+                            <div class="col-md-12 offset-3">
                                 <button type="submit" name="changeBio" class="btn btn-primary">
                                     Change Bio
                                 </button>
@@ -211,9 +211,9 @@
         </div>
         <div class="col-sm-4">
             <!--Change Avatar-->
-            <div class="panel panel-default">
-                <div class="panel-heading">Change Avatar</div>
-                <div class="panel-body">
+            <div class="card">
+                <div class="card-header">Change Avatar</div>
+                <div class="card-body">
                     @if (session('avatarError'))
                         <div class="alert alert-danger">
                             {{ session('avatarError') }}
@@ -227,11 +227,11 @@
                     <form enctype="multipart/form-data" action="{{ route('user.edit') }}" method="POST">
                         {{ csrf_field() }}
                         <div class="form-group">
-                            <input type="file" name="avatar" class="btn btn-default">
+                            <input type="file" name="avatar" class="btn btn-secondary">
                         </div>
 
                         <div class="form-group">
-                            <div class="col-md-12 col-md-offset-3">
+                            <div class="col-md-12 offset-3">
                                 <button type="submit" name="changeAvatar" class="btn btn-primary">
                                     Change Avatar
                                 </button>

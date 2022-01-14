@@ -49,7 +49,7 @@
             <br>
         </div>
         <div class="col-sm-2">
-            <img title="{{ $analysis->name }}" class="img-circle img-responsive" src='http://twivatar.glitch.me/{{ $analysis->screen_name }}' alt='{{ $analysis->name }}'>
+            <img title="{{ $analysis->name }}" class="rounded-circle img-fluid" src='http://twivatar.glitch.me/{{ $analysis->screen_name }}' alt='{{ $analysis->name }}'>
         </div>
     </div>
     <br>
@@ -58,31 +58,31 @@
             <!--left col-->
             <ul class="list-group">
                 <li class="list-group-item text-muted" contenteditable="false">Details</li>
-                <li class="list-group-item text-right"><span class="pull-left"><strong class="">Twitter ID</strong></span> {{ $analysis->twitter_id }}</li>
-                <li class="list-group-item text-right"><span class="pull-left"><strong class="">Location</strong></span>
+                <li class="list-group-item text-right"><span class="float-left"><strong class="">Twitter ID</strong></span> {{ $analysis->twitter_id }}</li>
+                <li class="list-group-item text-right"><span class="float-left"><strong class="">Location</strong></span>
                     @if($analysis->location != null)
                         {{$analysis->location}}
                     @else
                         Unknown
                     @endif
                 </li>
-                <li class="list-group-item text-right"><span class="pull-left"><strong class="">Tweets</strong></span> {{ number_format($analysis->tweets) }}</li>
-                <li class="list-group-item text-right"><span class="pull-left"><strong class="">Following</strong></span> {{ number_format($analysis->following) }}</li>
-                <li class="list-group-item text-right"><span class="pull-left"><strong class="">Followers</strong></span> {{ number_format($analysis->followers) }}</li>
-                <li class="list-group-item text-right"><span class="pull-left"><strong class="">Likes</strong></span> {{ number_format($analysis->likes) }}</li>
-                <li class="list-group-item text-right"><span class="pull-left"><strong class="">Join Date</strong></span>
+                <li class="list-group-item text-right"><span class="float-left"><strong class="">Tweets</strong></span> {{ number_format($analysis->tweets) }}</li>
+                <li class="list-group-item text-right"><span class="float-left"><strong class="">Following</strong></span> {{ number_format($analysis->following) }}</li>
+                <li class="list-group-item text-right"><span class="float-left"><strong class="">Followers</strong></span> {{ number_format($analysis->followers) }}</li>
+                <li class="list-group-item text-right"><span class="float-left"><strong class="">Likes</strong></span> {{ number_format($analysis->likes) }}</li>
+                <li class="list-group-item text-right"><span class="float-left"><strong class="">Join Date</strong></span>
                     @php $d = new DateTime($analysis->joined);
                         echo $d->format('D M j Y');
                     @endphp
                 </li>
-                <li class="list-group-item text-right"><span class="pull-left"><strong class="">Time Zone</strong></span>
+                <li class="list-group-item text-right"><span class="float-left"><strong class="">Time Zone</strong></span>
                     @if($analysis->time_zone != null)
                         {{$analysis->time_zone}}
                     @else
                         Unknown
                     @endif
                 </li>
-                <li class="list-group-item text-right"><span class="pull-left"><strong class="">URL</strong></span>
+                <li class="list-group-item text-right"><span class="float-left"><strong class="">URL</strong></span>
                     @if($analysis->url != null)
                         <a href="{{ $analysis->url }}" target="_blank">{{ $analysis->url }}</a>
                     @else
@@ -96,9 +96,9 @@
         </div>
         <!--/col-3-->
         <div class="col-sm-9" style="" contenteditable="false">
-            <div class="panel panel-default">
-                <div class="panel-heading">Description</div>
-                <div class="panel-body">
+            <div class="card">
+                <div class="card-header">Description</div>
+                <div class="card-body">
                     @if($analysis->description != null)
                         {{$analysis->description}}
                     @else
@@ -106,9 +106,9 @@
                     @endif
                 </div>
             </div>
-            <div class="panel panel-default target">
-                <div class="panel-heading" contenteditable="false">Sentiment</div>
-                <div class="panel-body">
+            <div class="card target">
+                <div class="card-header" contenteditable="false">Sentiment</div>
+                <div class="card-body">
                     <div class="row">
                         <div class="col-md-4 align-self-center" off>
                             <canvas id="positivity" width="50" height="50"></canvas>
@@ -120,7 +120,7 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-12 col-md-offset-8">
+                                <div class="col-md-12 offset-8">
                                     <button type="button" class="btn btn-info btn-md" data-toggle="modal" data-target="#myModal">Most Emotional</button>
                                 </div>
                             </div>
@@ -132,9 +132,9 @@
                     @endphp
                 </div>
             </div>
-            <div class="panel panel-default">
-                <div class="panel-heading">Inside Their Tweets</div>
-                <div class="panel-body" id="analytics">
+            <div class="card">
+                <div class="card-header">Inside Their Tweets</div>
+                <div class="card-body" id="analytics">
                     <div class="row">
                         <div class="col-sm-3">
                             <div class="percentage" id="replies" data-toggle="tooltip" title="Percent of tweets that were replies out of {{ $analysis->total }}" manual="true"></div>
@@ -165,9 +165,9 @@
                     </div>
                 </div>
             </div>
-            <div class="panel panel-default">
-                <div class="panel-heading">URLs Linked</div>
-                <div class="panel-body">
+            <div class="card">
+                <div class="card-header">URLs Linked</div>
+                <div class="card-body">
                     <div class="container-fluid">
                         <div class="row">
                             @if(isset($urls))
@@ -183,9 +183,9 @@
                     </div>
                 </div>
             </div>
-            <div class="panel panel-default">
-                <div class="panel-heading">Most used Hashtags</div>
-                <div class="panel-body">
+            <div class="card">
+                <div class="card-header">Most used Hashtags</div>
+                <div class="card-body">
                     <div class="container-fluid">
                         <div class="row">
                             @if(isset($hashtags))
@@ -209,9 +209,9 @@
                     </div>
                 </div>
             </div>
-            <div class="panel panel-default">
-                <div class="panel-heading">Twitter User Mentions</div>
-                <div class="panel-body">
+            <div class="card">
+                <div class="card-header">Twitter User Mentions</div>
+                <div class="card-body">
                     <div class="container-fluid">
                         <div class="row no-gutter popup-gallery">
                             @if(isset($mentions))
@@ -222,7 +222,7 @@
                                                      document.getElementById('analysis-form-{{ $mention->screen_name }}').submit();" class="portfolio-box">
 
 
-                                            <img src="http://twivatar.glitch.me/{{ $mention->screen_name }}" class="img-responsive" alt="">
+                                            <img src="http://twivatar.glitch.me/{{ $mention->screen_name }}" class="img-fluid" alt="">
                                             <div class="portfolio-box-caption">
                                                 <div class="portfolio-box-caption-content">
                                                     <div class="project-category text-faded">
@@ -247,9 +247,9 @@
                     </div>
                 </div>
             </div>
-            <div class="panel panel-default">
-                <div class="panel-heading">Active Hours</div>
-                <div class="panel-body">
+            <div class="card">
+                <div class="card-header">Active Hours</div>
+                <div class="card-body">
                     @php
                         $time = array();
                         $occurs = array();
@@ -343,7 +343,7 @@
                 @endif
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             </div>
         </div>
     </div>

@@ -13,15 +13,17 @@
                         <form class="form-horizontal" method="POST" action="{{ route('analyze') }}">
                             {{ csrf_field() }}
                             <div class="row">
-                                <div class="col-sm-5 col-sm-offset-3">
+                                <div class="col-sm-5 offset-3">
                                     <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
                                         <div class="input-group">
-                                            <span class="input-group-addon" id="sizing-addon2">@</span>
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">@</span>
+                                            </div>
                                             <input id="name" name="name" type="text" class="form-control" placeholder="Enter Twitter Screen Name" aria-describedby="sizing-addon2">
                                         </div>
 
                                         @if ($errors->has('name'))
-                                            <span class="help-block">
+                                            <span class="form-text">
                                                 <strong>{{ $errors->first('name') }}</strong>
                                             </span>
                                         @endif
@@ -29,7 +31,7 @@
                                 </div>
                                 <div class="col-sm-1">
                                     <div class="form-group">
-                                        <button type="submit" id="analyzeButton" data-loading-text="Loading..." name="analyze" class="btn btn-default">
+                                        <button type="submit" id="analyzeButton" data-loading-text="Loading..." name="analyze" class="btn btn-secondary">
                                             Analyze
                                         </button>
                                     </div>
@@ -102,7 +104,7 @@
                     @foreach($recents as $recent)
                         <div class="col-sm-4 col-md-2">
                             <a href="{{ route('analysis.view', array('id' => $recent->id, 'name' => $recent->screen_name)) }}" class="portfolio-box">
-                                <img src="http://twivatar.glitch.me/{{ $recent->screen_name }}" class="img-responsive" alt="{{'@'.$recent->screen_name}}">
+                                <img src="http://twivatar.glitch.me/{{ $recent->screen_name }}" class="img-fluid" alt="{{'@'.$recent->screen_name}}">
                                 <div class="portfolio-box-caption">
                                     <div class="portfolio-box-caption-content">
                                         <div class="project-category text-faded">

@@ -18,9 +18,9 @@
 <div class="container">
     <div class="row">
         <div class="col-lg-12">
-            <div class="panel panel-default">
-                <div class="panel-heading">About</div>
-                <div class="panel-body">
+            <div class="card">
+                <div class="card-header">About</div>
+                <div class="card-body">
                     <h1>Project Description</h1>
                     This project is a analytics tool that uses a person’s twitter account to analyze their personality based on what they tweet.
                     It will return information about their personality and whether they are a positive or negative person as well as traits like happy, sad, mad, etc.

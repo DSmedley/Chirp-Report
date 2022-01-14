@@ -7,13 +7,13 @@
     <div class="row">
         <!--/col-3-->
         <div class="col-sm-9" style="" contenteditable="false">
-            <div class="panel panel-default">
-                <div class="panel-heading">{{ Auth::user()->name }}'s Bio</div>
-                <div class="panel-body">{{ Auth::user()->bio }}</div>
+            <div class="card">
+                <div class="card-header">{{ Auth::user()->name }}'s Bio</div>
+                <div class="card-body">{{ Auth::user()->bio }}</div>
             </div>
-            <div class="panel panel-default target">
-                <div class="panel-heading" contenteditable="false">Saved analyses</div>
-                <div class="panel-body">
+            <div class="card target">
+                <div class="card-header" contenteditable="false">Saved analyses</div>
+                <div class="card-body">
                     <div class="row">
                         <div class="col-md-4">
                             <div class="thumbnail">
@@ -23,8 +23,8 @@
                                 </div>
                             </div>
                         </div>
-                    </div>      
-                </div> 
+                    </div>
+                </div>
             </div>
         </div>
     </div>

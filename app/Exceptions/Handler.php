@@ -2,11 +2,10 @@
 
 namespace App\Exceptions;
 
-use Exception;
-use Request;
 use Illuminate\Auth\AuthenticationException;
-use Response;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Support\Arr;
+use Throwable;
 
 class Handler extends ExceptionHandler
 {
@@ -30,44 +29,31 @@ class Handler extends ExceptionHandler
     ];
 
     /**
-     * Report or log an exception.
+     * Register the exception handling callbacks for the application.
      *
-     * This is a great spot to send exceptions to Sentry, Bugsnag, etc.
-     *
-     * @param  \Exception  $exception
      * @return void
      */
-    public function report(Exception $exception)
+    public function register()
     {
-        parent::report($exception);
+        $this->reportable(function (Throwable $e) {
+            //
+        });
     }
 
-    /**
-     * Render an exception into an HTTP response.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Exception  $exception
-     * @return \Illuminate\Http\Response
-     */
-    public function render($request, Exception $exception)
+    protected function unauthenticated($request, AuthenticationException $exception)
     {
-        return parent::render($request, $exception);
-    }
-
-    protected function unauthenticated($request, AuthenticationException $exception){
-        
-        $guard = array_get($exception->guards(), 0);
+        $guard = Arr::get($exception->guards(), 0);
         switch ($guard) {
-          case 'admin':
-            $login = 'admin.login';
-            break;
-          default:
-            $login = 'login';
-            break;
+            case 'admin':
+                $login = 'admin.login';
+                break;
+            default:
+                $login = 'login';
+                break;
         }
 
         return $request->expectsJson()
-                ? response()->json(['message' => 'Unauthenticated.'], 401)
-                : redirect()->guest(route($login));
+            ? response()->json(['message' => $exception->getMessage()], 401)
+            : redirect()->guest($exception->redirectTo() ?? route($login));
     }
 }

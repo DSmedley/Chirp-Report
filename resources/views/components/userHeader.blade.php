@@ -19,7 +19,7 @@
         <br>
     </div>
     <div class="col-sm-2">
-        <img title="{{ Auth::user()->name }}" class="img-circle img-responsive" src='/uploads/avatars/{{ Auth::user()->avatar }}' alt="{{ Auth::user()->name }}">
+        <img title="{{ Auth::user()->name }}" class="rounded-circle img-fluid" src='/uploads/avatars/{{ Auth::user()->avatar }}' alt="{{ Auth::user()->name }}">
     </div>
 </div>
 <br>

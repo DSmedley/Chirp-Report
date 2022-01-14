@@ -1,7 +1,7 @@
 <!--Analyze Twitter User-->
-<div class="panel panel-default">
-    <div class="panel-heading">New Analysis</div>
-    <div class="panel-body">
+<div class="card">
+    <div class="card-header">New Analysis</div>
+    <div class="card-body">
         <div class="row">
             <div class="col-md-12">
                 Enter friends, competitors, employee candidates or industry leaders. We will gather the given user details and latest tweets, analyze them and put them into simple and easy to read charts.
@@ -25,12 +25,14 @@
                     <div class="col-sm-4" style="margin-right:15px;">
                         <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
                             <div class="input-group">
-                                <span class="input-group-addon" id="sizing-addon2">@</span>
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">@</span>
+                                </div>
                                 <input id="name" name="name" type="text" class="form-control" placeholder="Enter Twitter Screen Name" aria-describedby="sizing-addon2">
                             </div>
 
                             @if ($errors->has('name'))
-                                <span class="help-block">
+                                <span class="form-text">
                                     <strong>{{ $errors->first('name') }}</strong>
                                 </span>
                             @endif
