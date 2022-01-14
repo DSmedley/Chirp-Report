@@ -5,14 +5,14 @@ on:
     - master
 jobs:
   Deploy-ChirpReport:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - name: Install Dependencies
-      run: composer install --no-interaction --no-scripts --no-suggest --no-progress --prefer-dist
+    - name: Install Composer Dependencies
+      run: composer install --no-interaction --no-scripts --no-progress --prefer-dist --ignore-platform-reqs
     - name: Directory Permissions
-      run: chmod -R 777 storage bootstrap/cache
-    - name: copy file via ssh password
+      run: chmod -R 777 storage bootstrap/cache public/uploads
+    - name: Upload files to server
       uses: appleboy/scp-action@master
       with:
         host: ${{ secrets.REMOTE_HOST }}
@@ -21,7 +21,7 @@ jobs:
         passphrase: ${{ secrets.SERVER_SSH_PASSCODE }}
         source: "*"
         target: ${{ secrets.REMOTE_TARGET_NEW }}
-    - name: ssh proxy command
+    - name: Copy production files
       uses: appleboy/ssh-action@master
       with:
         host: ${{ secrets.REMOTE_HOST }}
@@ -29,7 +29,15 @@ jobs:
         key: ${{ secrets.SERVER_SSH_KEY }}
         passphrase: ${{ secrets.SERVER_SSH_PASSCODE }}
         script: |
+          sudo rm -rf ${{ secrets.REMOTE_TARGET_OLD }}
           cp ${{ secrets.REMOTE_TARGET_CURRENT }}/.env ${{ secrets.REMOTE_TARGET_NEW }}
           cp -R ${{ secrets.REMOTE_TARGET_CURRENT }}/public/uploads ${{ secrets.REMOTE_TARGET_NEW }}/public
+          cd ${{ secrets.REMOTE_TARGET_NEW }}
+          php artisan migrate --force
+          php artisan route:cache
+          cd /
+          sudo chown -R www-data:www-data ${{ secrets.REMOTE_TARGET_NEW }}
+          mv ${{ secrets.REMOTE_TARGET_CURRENT }} ${{ secrets.REMOTE_TARGET_OLD }}
+          mv ${{ secrets.REMOTE_TARGET_NEW }} ${{ secrets.REMOTE_TARGET_CURRENT }}
           cd ${{ secrets.REMOTE_TARGET_CURRENT }}
-          pwd
+          php artisan config:cache
