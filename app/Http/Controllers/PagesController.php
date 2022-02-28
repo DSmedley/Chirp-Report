@@ -2,23 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Analyses;
-use DB;
+use App\Http\AnalysisService;
 
-class PagesController extends Controller
-{
-    public function getHome(){
-        $recents = DB::select( DB::raw("select * from analyses join (select screen_name, max(created_at) as created_at from analyses group by screen_name) latest on latest.created_at = analyses.created_at AND latest.screen_name = analyses.screen_name ORDER BY analyses.id DESC LIMIT 18") );
-        
-        return view('welcome')->with('recents', $recents);
+class PagesController extends Controller {
+
+    public function __construct(private AnalysisService $analysisService) {}
+
+    public function getHome() {
+        return view('welcome')->with('recents', $this->analysisService->getRecentAnalyses());
     }
-    
-    public function getAbout(){
+
+    public function getAbout() {
         return view('about');
     }
-    
-    public function getContact(){
+
+    public function getContact() {
         return view('contact');
     }
 }
