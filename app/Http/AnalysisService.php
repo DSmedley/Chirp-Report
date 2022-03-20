@@ -15,8 +15,24 @@ use Illuminate\Support\Facades\DB;
 
 class AnalysisService {
 
-    public function getRecentAnalyses() {
+    public function getRecentAnalyses(): array {
         return DB::select( DB::raw("select * from analyses join (select screen_name, max(created_at) as created_at from analyses group by screen_name) latest on latest.created_at = analyses.created_at AND latest.screen_name = analyses.screen_name ORDER BY analyses.id DESC LIMIT 18") );
+    }
+
+    public function getAnalysis($screen_name = null): array {
+        $analysis =  $this->getData($screen_name);
+        $mentions = Mention::where('analysis_id', $analysis->id)->get();
+        $hashtags = Hashtag::where('analysis_id', $analysis->id)->get();
+        $hours = Hour::select('hour', 'occurs')->where('analysis_id', $analysis->id)->orderBy('hour')->get();
+        $urls = Url::where('analysis_id', $analysis->id)->get();
+
+        return array(
+            'background'   => $analysis,
+            'mentions'   => $mentions,
+            'hashtags'   => $hashtags,
+            'hours'      => $hours,
+            'urls'      => $urls,
+        );
     }
 
     public function getData($screen_name = null) {

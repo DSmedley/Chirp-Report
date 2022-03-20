@@ -9,11 +9,11 @@ class AnalysisApiController extends Controller {
 
     public function __construct(private AnalysisService $analysisService) {}
 
-    function analyzeUser(Request $request) {
-        return $this->analysisService->getData($request->query('screen_name'));
+    function analyzeUser(Request $request): array {
+        return $this->analysisService->getAnalysis($request->query('screen_name'));
     }
 
-    function getRecentAnalyses() {
+    function getRecentAnalyses(): array {
         return $this->analysisService->getRecentAnalyses();
     }
 }
