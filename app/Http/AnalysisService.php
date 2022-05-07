@@ -19,7 +19,7 @@ class AnalysisService {
         return DB::select( DB::raw("select * from analyses join (select screen_name, max(created_at) as created_at from analyses group by screen_name) latest on latest.created_at = analyses.created_at AND latest.screen_name = analyses.screen_name ORDER BY analyses.id DESC LIMIT 18") );
     }
 
-    public function getAnalysis($screen_name = null): array {
+    public function analyzeUser($screen_name = null): array {
         $analysis =  $this->getData($screen_name);
         $mentions = Mention::where('analysis_id', $analysis->id)->get();
         $hashtags = Hashtag::where('analysis_id', $analysis->id)->get();
@@ -33,6 +33,34 @@ class AnalysisService {
             'hours'      => $hours,
             'urls'      => $urls,
         );
+    }
+
+    public function getAnalysis($id = null, $name = null)
+    {
+        //Get data from specified analysis
+        //Else return error
+        if ($id){
+            $analysis = Analyses::where('id', $id)->first();
+        }
+
+        $data = null;
+
+        if(isset($analysis->id)){
+            $mentions = Mention::where('analysis_id', $analysis->id)->get();
+            $hashtags = Hashtag::where('analysis_id', $analysis->id)->get();
+            $hours = Hour::select('hour', 'occurs')->where('analysis_id', $analysis->id)->orderBy('hour')->get();
+            $urls = Url::where('analysis_id', $analysis->id)->get();
+
+            $data = array(
+                'background'   => $analysis,
+                'mentions'   => $mentions,
+                'hashtags'   => $hashtags,
+                'hours'      => $hours,
+                'urls'      => $urls,
+            );
+        }
+
+        return $data;
     }
 
     public function getData($screen_name = null) {

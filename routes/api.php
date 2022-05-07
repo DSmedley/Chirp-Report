@@ -19,5 +19,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/analyze', [AnalysisApiController::class, 'analyzeUser']);
+Route::post('/analyze', [AnalysisApiController::class, 'analyzeUser']);
+Route::get('/analyze', [AnalysisApiController::class, 'getAnalysis']);
 Route::get('/analyses', [AnalysisApiController::class, 'getRecentAnalyses']);
